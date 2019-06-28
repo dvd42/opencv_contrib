@@ -11,5 +11,7 @@
 
 #include <opencv2/ts.hpp>
 #include <opencv2/dnn_model.hpp>
+#include <opencv2/core/utility.hpp>
+#include "test_common.hpp"
 
 #endif

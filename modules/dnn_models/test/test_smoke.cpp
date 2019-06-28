@@ -1,72 +1,31 @@
 #include "test_precomp.hpp"
+#include "npy_blob.hpp"
+
+using namespace cv;
+using namespace dnn;
 
 namespace opencv_test { namespace {
 
-    TEST(DetectionModel, smokeTest) {
+    TEST(TestImport, smokeTest){
 
-        cv::dnn::DetectionModel* obj1 = new cv::dnn::DetectionModel("model.onnx");
+        readNetFromONNX("/home/diego/Projects/gsoc/models/attend_rectify.onnx");
 
-        obj1->setVerbose(5);
-        obj1->setLabels(std::vector<std::string> (1, "dog"));
+        /*
+        Mat inp = blobFromNPY("/home/diego/inorm_test_in.npy");
+        Mat exp = blobFromNPY("/home/diego/inorm_test_out.npy");
+        Net model = readNetFromONNX("/home/diego/inorm_model.onnx");
+        model.setInput(inp);
+        Mat out = model.forward();
 
-        EXPECT_EQ("model.onnx", obj1->getModelPath());
-        EXPECT_EQ(5, obj1->getVerbose());
-        EXPECT_EQ(0.992, obj1->getConfidence()[0]);
-        EXPECT_EQ("dog", obj1->getLabels()[0]);
 
-    }
+        std::cout<<"SKLJDKLSAJDKLASJKDjKSLAJlkda"<<std::endl;
+        Mat_<float>::iterator it = out.begin<float>(), itEnd = out.end<float>();
+        for(; it != itEnd; ++it)
+            std::cout<<*it<<std::endl;
 
-    TEST(ClassificationModel, smokeTest) {
+        normAssert(out, exp, "");
+        */
 
-        cv::dnn::ClassificationModel* obj1 = new cv::dnn::ClassificationModel("model.onnx");
-
-        obj1->setVerbose(5);
-        obj1->setTopk(2);
-        obj1->setLabels(std::vector<std::string> (1, "dog"));
-
-        EXPECT_EQ("model.onnx", obj1->getModelPath());
-        EXPECT_EQ(5, obj1->getVerbose());
-        EXPECT_EQ("dog", obj1->getLabels()[0]);
-        EXPECT_EQ(2, obj1->getTopk());
-
-    }
-
-    TEST(GenerationModel, smokeTest) {
-
-        cv::dnn::GenerationModel* obj1 = new cv::dnn::GenerationModel("model.onnx");
-
-        obj1->setVerbose(5);
-        obj1->setStyles(std::vector<std::string> (1, "van-goh"));
-
-        EXPECT_EQ("model.onnx", obj1->getModelPath());
-        EXPECT_EQ(5, obj1->getVerbose());
-        EXPECT_EQ("van-goh", obj1->getStyles()[0]);
-
-    }
-
-    TEST(LandmarksModel, smokeTest) {
-
-        cv::dnn::LandmarksModel* obj1 = new cv::dnn::LandmarksModel("model.onnx");
-
-        obj1->setVerbose(5);
-
-        EXPECT_EQ("model.onnx", obj1->getModelPath());
-        EXPECT_EQ(5, obj1->getVerbose());
-        EXPECT_EQ(0.992, obj1->getConfidence()[0]);
-
-    }
-
-    TEST(SegmentationModel, smokeTest) {
-
-        cv::dnn::SegmentationModel* obj1 = new cv::dnn::SegmentationModel("model.onnx");
-
-        obj1->setVerbose(5);
-        obj1->setLabels(std::vector<std::string> (1, "dog"));
-
-        EXPECT_EQ("model.onnx", obj1->getModelPath());
-        EXPECT_EQ(5, obj1->getVerbose());
-        EXPECT_EQ(0.992, obj1->getConfidence()[0]);
-        EXPECT_EQ("dog", obj1->getLabels()[0]);
 
     }
 

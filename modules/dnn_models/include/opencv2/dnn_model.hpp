@@ -17,13 +17,15 @@ namespace cv {
                 virtual void forward() = 0;
                 virtual void drawImage() = 0;
                 virtual ~DnnModel() = 0;
+                void reloadModel(std::string path);
 
                 std::string getModelPath();
                 int getVerbose();
                 cv::dnn::Net getModel();
 
-                void setVerbose(int);
-                void setModel(cv::dnn::Net);
+                void setVerbose(int v);
+                void setModelPath(std::string path);
+                void setModel(cv::dnn::Net newModel);
 
             protected:
                 int verbose;
@@ -36,12 +38,12 @@ namespace cv {
             public:
                 void forward();
                 void drawImage();
-                DetectionModel(std::string);
+                DetectionModel(std::string path);
 
                 std::vector<double> getConfidence();
                 std::vector<std::string> getLabels();
 
-                void setLabels(std::vector<std::string>);
+                void setLabels(std::vector<std::string> newLabels);
 
             private:
                 std::vector<double> confidence;
@@ -54,14 +56,14 @@ namespace cv {
             public:
                 void forward();
                 void drawImage();
-                ClassificationModel(std::string);
+                ClassificationModel(std::string path);
 
                 std::vector<double> getConfidence();
                 int getTopk();
                 std::vector<std::string> getLabels();
 
-                void setTopk(int);
-                void setLabels(std::vector<std::string>);
+                void setTopk(int k);
+                void setLabels(std::vector<std::string> newLabels);
 
             private:
                 int topk;
@@ -75,10 +77,10 @@ namespace cv {
             public:
                 void forward();
                 void drawImage();
-                GenerationModel(std::string);
+                GenerationModel(std::string path);
 
                 std::vector<std::string> getStyles();
-                void setStyles(std::vector<std::string>);
+                void setStyles(std::vector<std::string> newStyles);
 
             private:
                 std::vector<std::string> styles;
@@ -89,7 +91,7 @@ namespace cv {
             public:
                 void forward();
                 void drawImage();
-                LandmarksModel(std::string);
+                LandmarksModel(std::string path);
 
                 std::vector<double> getConfidence();
 
@@ -102,12 +104,12 @@ namespace cv {
             public:
                 void forward();
                 void drawImage();
-                SegmentationModel(std::string);
+                SegmentationModel(std::string path);
 
                 std::vector<double> getConfidence();
                 std::vector<std::string> getLabels();
 
-                void setLabels(std::vector<std::string>);
+                void setLabels(std::vector<std::string> newLabels);
 
             private:
                 std::vector<double> confidence;

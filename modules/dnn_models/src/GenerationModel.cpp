@@ -1,8 +1,9 @@
 #include <opencv2/dnn_model.hpp>
 
-
 cv::dnn::GenerationModel::GenerationModel(std::string path){
+
     this->modelPath = path;
+    this->model = cv::dnn::readNetFromONNX(this->modelPath);
 }
 
 void cv::dnn::GenerationModel::forward(){
